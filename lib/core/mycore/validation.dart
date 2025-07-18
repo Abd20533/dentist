@@ -43,6 +43,8 @@ class ValidationType {
   static const date = 'date';
   static const age = 'age';
   static const confirm = 'confirm';
+  static const string = 'string';
+  static const nul = 'nul';
 }
 
 String? validate(String value, String type) {
@@ -53,7 +55,9 @@ String? validate(String value, String type) {
   switch (type) {
     case ValidationType.email:
       return GetUtils.isEmail(value) ? null : 'invalid_email_format'.tr;
+    case ValidationType.nul:
 
+      return value.isEmpty ?null:null;
     case ValidationType.password:
       return value.length >= 8 ? null : 'password_min_length'.tr;
 
@@ -64,9 +68,16 @@ String? validate(String value, String type) {
 
     case ValidationType.name:
       return GetUtils.isUsername(value) ? null : 'invalid_name_format'.tr;
+    case ValidationType.string:
+      if(value.isNotEmpty &&  !GetUtils.isPhoneNumber(value.removeAllWhitespace)){
+
+      return null; }
+
+      return  'invalid_name_format'.tr;
 
     case ValidationType.date:
       return _validateDate(value);
+
 
     case ValidationType.age:
       return GetUtils.isNumericOnly(value) && int.parse(value) >= 1

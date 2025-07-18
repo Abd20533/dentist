@@ -1,120 +1,3 @@
-// import 'package:animate_do/animate_do.dart';
-// import 'package:dentist/core/mycore/validation.dart';
-// import 'package:flutter/material.dart';
-//
-// class CustomTextFormField extends StatelessWidget {
-//   const CustomTextFormField({
-//     super.key,
-//     required this.obscureText,
-//     this.callback,
-//     this.controller,
-//     required this.type,
-//     required this.title,
-//     this.icon,
-//     required this.validationType,
-//     show,
-//     borderRadiusCircular,
-//   });
-//
-//   final bool obscureText;
-//   final bool show=true;
-//
-//   final VoidCallback? callback;
-//   final double borderRadiusCircular = 40;
-//   final TextEditingController? controller;
-//   final TextInputType type;
-//   final String title;
-//   final IconData? icon;
-//   final String validationType;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return FadeInLeft(
-//       duration: const Duration(seconds: 1),
-//       delay: const Duration(milliseconds: 500),
-//       child: TextFormField(
-//         controller: controller,
-//         onFieldSubmitted: (value) {},
-//         onChanged: (value) {},
-//         validator: (value) {
-//           return validate(value!, validationType);
-//         },
-//         keyboardType: type,
-//         obscureText: obscureText,
-//         decoration: InputDecoration(
-//             isDense: true,
-//             contentPadding: const EdgeInsets.symmetric(vertical: 6, horizontal: 20),
-//             disabledBorder: const OutlineInputBorder(
-//                 borderSide: BorderSide(color: Colors.black, width: 2)),
-//
-//
-//             focusColor: Colors.blue,
-//             fillColor:  Colors.blue,
-//
-//             focusedBorder: OutlineInputBorder(
-//                 borderRadius: BorderRadius.circular(borderRadiusCircular),
-//                 borderSide: const BorderSide(
-//                   color: Colors.blue, // تغيير اللون هنا إلى أزرق
-//                   width: 2,
-//                 )),
-//
-//             // الحدود العادية
-//             border: OutlineInputBorder(
-//               borderSide: const BorderSide(
-//                   style: BorderStyle.solid,
-//                   color: Colors.black),
-//               borderRadius: BorderRadius.circular(borderRadiusCircular),
-//             ),
-//
-//             // عند وجود خطأ مع التركيز
-//             focusedErrorBorder: OutlineInputBorder(
-//                 borderRadius: BorderRadius.circular(borderRadiusCircular),
-//                 borderSide: const BorderSide(
-//                   color: Colors.blue, // تغيير اللون هنا إلى أزرق
-//                   style: BorderStyle.solid,
-//                   width: 2,
-//                 )),
-//
-//             // عند وجود خطأ بدون تركيز
-//             errorBorder: OutlineInputBorder(
-//                 borderRadius: BorderRadius.circular(borderRadiusCircular),
-//                 borderSide: const BorderSide(
-//                   color: Colors.blue, // تغيير اللون هنا إلى أزرق
-//                   width: 2,
-//                 )),
-//
-//
-//             errorStyle: const TextStyle(
-//               color: Colors.blue, // لون نص الخطأ
-//               fontWeight: FontWeight.bold,
-//             ),
-//
-//             labelStyle: const TextStyle(
-//                 color: Colors.black54,
-//                 fontWeight: FontWeight.w700,
-//                 fontSize: 13),
-//
-//             suffixIcon:show==true? IconButton(
-//                 onPressed: callback,
-//                 icon: Icon(
-//                   obscureText ? Icons.visibility : Icons.visibility_off,
-//                   color: Colors.blue, // تغيير لون الأيقونة إلى أزرق
-//                 )):null,
-//
-//             label: Text(
-//               title,
-//               style: const TextStyle(
-//                 fontWeight: FontWeight.bold,
-//                 color: Colors.blue, // تغيير لون النص إلى أزرق
-//               ),
-//             )
-//         ),
-//       ),
-//     );
-//   }
-// }
-//
-
 
 import 'package:animate_do/animate_do.dart';
 import 'package:dentist/core/mycore/validation.dart';
@@ -131,10 +14,21 @@ class CustomTextFormField extends StatelessWidget {
     this.showIcon = false,
     required this.validationType,
     this.borderRadius = 40.0,
+
+
+    this.errorColor = Colors.black,
+    this.shouldFadeInLeft = true,
+    this.maxLines = 1,
+
     this.onIconTap,
   });
   final VoidCallback? onIconTap;
+  final Color errorColor;
+
   final bool obscureText;
+  final bool shouldFadeInLeft ;
+  final int maxLines ;
+
   final bool showIcon;
   final ValueChanged<String>? onChanged;
   final double borderRadius;
@@ -143,21 +37,51 @@ class CustomTextFormField extends StatelessWidget {
   final String label;
   final String validationType;
 
-  Color _getBorderColor(Set<MaterialState> states) {
-    if (states.contains(MaterialState.error)) return Colors.black;
-    if (states.contains(MaterialState.focused)) return Colors.blue;
+  Color _getBorderColor(Set<WidgetState> states) {
+    if (states.contains(WidgetState.error)) {
+
+
+      return errorColor;
+
+    }
+    // if (states.contains(WidgetState.error)) return Colors.black;
+    if (states.contains(WidgetState.focused)) return Colors.blue;
     return Colors.grey;
   }
 
   @override
   Widget build(BuildContext context) {
-    return FadeInLeft(
+    return
+
+
+      shouldFadeInLeft?
+      FadeInLeft(
+
+
+
       duration: const Duration(seconds: 1),
       delay: const Duration(milliseconds: 500),
-      child: TextFormField(
-        controller: controller,
+      child:buildTextFormField()
+    )
+    :
+
+      buildTextFormField();
+
+  }
+
+  // maxLines: maxLines,
+
+
+  Widget buildTextFormField(){
+
+    return
+      TextFormField(
+
+        maxLines: maxLines,
+
+      controller: controller,
         // onChanged: onChanged,
-                validator: (value) {
+        validator: (value) {
           return validate(value!, validationType);
         },
         onChanged: (value) {},
@@ -193,16 +117,20 @@ class CustomTextFormField extends StatelessWidget {
 
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(borderRadius),
-            borderSide: const BorderSide(
-              color: Colors.red,
+            borderSide: BorderSide(
+              // eeeeeeeeeeeeeeeeeeeeeeeeeeee
+
+              color: errorColor,
               width: 1,
             ),
           ),
 
           focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(borderRadius),
-            borderSide: const BorderSide(
-              color: Colors.red,
+            borderSide:  BorderSide(
+
+              // eeeeeeeeeeeeeeeeeeeeeeeeeeee
+              color: errorColor,
               width: 1.0,
             ),
           ),
@@ -227,13 +155,12 @@ class CustomTextFormField extends StatelessWidget {
               : null,
 
           errorStyle: const TextStyle(
-            height: 1,
-            color: Colors.red,
-            fontWeight: FontWeight.w500,
-            fontSize: 8
+              height: 1,
+              color: Colors.red,
+              fontWeight: FontWeight.w500,
+              fontSize: 8
           ),
         ),
-      ),
-    );
+      );
   }
 }

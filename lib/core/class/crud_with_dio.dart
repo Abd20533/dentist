@@ -1,38 +1,89 @@
 import 'dart:io';
 
+import 'package:dentist/core/constant/app_link_api.dart';
 import 'package:dentist/core/shaerd/my_cash_helper.dart';
 import 'package:dio/dio.dart';
 
 class DioHelper {
   static late Dio dio;
-  static String token = CashHelper.getUserToken()! != "" ? CashHelper.getUserToken()! : "";
+  // static String token = CashHelper.getUserToken()! != "" ? CashHelper.getUserToken()! : "";
+  static String token = CashHelper.getUserToken() ??"";
+
 
   CashHelper cashHelper = CashHelper();
 
   static init() {
     dio = Dio(
       BaseOptions(
-        // 192.168.29.1
-        // 192.168.180.209
-        // 192.168.166.209
-        // 192.168.69.209
-        // 192.168.69.209
-        // 192.168.147.209
-        // http://192.168.147.209:8000
-        // 192.168.180.209
-        //  192.168.180.209
-        //  192.168.205.209
-        //  192.168.205.209
-        // 192.168.215.209
-        baseUrl: "http://192.168.205.209:8000/api/",
+        baseUrl: AppLinkApi.urlServer,
         receiveDataWhenStatusError: true,
-        connectTimeout: const Duration(milliseconds: 30000),
-        receiveTimeout: const Duration(milliseconds: 30000),
+        connectTimeout: const Duration(milliseconds: 10000),
+        receiveTimeout: const Duration(milliseconds: 10000),
       ),
     );
   }
 
   static Future<Response> myPost({
+    required String endPont,
+    required myData,
+  }) async {
+
+    print("myPost");
+    print('token is: $token');
+
+    print(AppLinkApi.urlServer +"${endPont}");
+
+    FormData formData = FormData.fromMap(myData);
+    dynamic rul=await dio.post(endPont,
+        data: formData,
+        options: Options(
+            headers: {'Authorization': 'Bearer $token',
+
+        'Accept': 'application/json',
+              // 'Content-Type': 'application/json',
+            },
+            followRedirects: false,
+            validateStatus: (status) {
+              return status! < 500;
+            }));
+    print("rul is: ${rul.toString()}");
+
+    return  rul;
+  }
+
+
+
+  static Future<Response> register({
+    required String endPont,
+    required myData,
+  }) async {
+
+    print("myPost");
+    print('token is: $token');
+
+    print(AppLinkApi.urlServer +"${endPont}");
+
+    FormData formData = FormData.fromMap(myData);
+    dynamic rul=await dio.post(endPont,
+        data: formData,
+        options: Options(
+            headers: {
+              // 'Authorization': 'Bearer $token',
+
+              'Accept': 'application/json',
+              // 'Content-Type': 'application/json',
+            },
+            followRedirects: false,
+            validateStatus: (status) {
+              return status! < 500;
+            }));
+    print("rul is: ${rul.toString()}");
+
+    return  rul;
+  }
+
+
+  static Future<Response> register1({
     required String endPont,
     required myData,
   }) async {
@@ -42,31 +93,13 @@ class DioHelper {
             headers: {
               'Authorization': 'Bearer $token',
               'Accept': 'application/json',
-              'Content-Type': 'application/json',
+              // 'Content-Type': 'application/json',
             },
             followRedirects: false,
             validateStatus: (status) {
               return status! < 500;
             }));
   }
-
-  static Future<Response> register({
-    required String endPont,
-    required myData,
-  }) async {
-    return await dio.post(endPont,
-        data: myData,
-        options: Options(
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-            },
-            followRedirects: false,
-            validateStatus: (status) {
-              return status! < 500;
-            }));
-  }
-
 
 static Future<Response> myGet({
     required String endPont,
@@ -89,9 +122,6 @@ static Future<Response> myGet({
   }
 
 
-
-
-
  
 
 
@@ -112,16 +142,6 @@ static Future<Response> myGet({
               return status! < 500;
             }));
   }
-
-
-
-
-
-
-
-
-
-
 
 
   static Future<Response> updateProfile(

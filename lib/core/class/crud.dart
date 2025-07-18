@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
@@ -7,68 +5,76 @@ import 'package:dentist/core/class/crud_with_dio.dart';
 import 'package:dentist/core/class/status_request.dart';
 import 'package:dentist/core/functions/check_internet.dart';
 import 'package:http/http.dart' as http;
+import 'package:path/path.dart';
 
-class Crud1 {
-  Future<Either<StatusRequest, Map>> postData(
-      {required String url, required Map data}) async {
-    try {
-      print("postData");
-      if (await checkInternet()) {
-        print("checkInternet: yes");
 
-        var response =
-            await http.post(Uri.parse("uri"), body: null, headers: null);
-        if (response.statusCode == 200 || response.statusCode == 201) {
-          var responseBody = jsonDecode(response.body);
-
-          ///Map responseBody = jsonDecode(response.body);
-          ///data {phone :09867,}
-          // Map responseBodyMap=responseBody["data"]["0"][1];
-
-          return Right(responseBody);
-        } else {
-          print("serverFailure");
-          return const Left(StatusRequest.serverFailure);
-        }
-      } else {
-        print("No inter Net");
-
-        return const Left(StatusRequest.offlineFailure);
-      }
-    } catch (e) {
-      print("serverFailure");
-
-      return const Left(StatusRequest.failureException);
-    }
-  }
-}
+import 'dart:io';
 
 class Crud {
-  Future<Either<StatusRequest, dynamic>> postData(
-      {required String url, required Map data}) async {
-    try {
-      print("postData");
-      if (await checkInternet()) {
-        print("checkInternet: yes");
+  Future<Either<StatusRequest, dynamic>> postData({
+    required String linkUrl,
+    required Map data,
+  }) async {
+    print("Crud0");
 
-        var response =await DioHelper.myPost(endPont: "", myData: {});
-       
+    if (await checkInternet()) {
 
-        if (response.statusCode! < 199 &&  response.statusCode! <  300 ) {
-          return Right(response);
-        } else {
-          print("serverFailure");
-          return const Left(StatusRequest.serverFailure);
-        }
-      } else {
-        print("No inter Net");
+      print("you have internetr");
+      dynamic response=await DioHelper.register(endPont: linkUrl, myData: data);
+      print("response is: ${response.toString()}");
 
-        return const Left(StatusRequest.offlineFailure);
+
+
+
+
+      if (response.statusCode! > 199 &&  response.statusCode! <  300 ) {
+
+        print(response.statusCode);
+        print("Crud0");
+        return Right(response);}
+
+      else {
+        return const Left(StatusRequest.serverException);
       }
-    } catch (e) {
-      print("serverFailure");
-
-      return const Left(StatusRequest.failureException);
     }
+    return const Left(StatusRequest.serverFailure);
+
+
   }
-}
+
+    Future<Either<StatusRequest, Map>> addRequestWithImageOne({
+      String? nameRequest,
+      required Map data,
+      required String url,
+      required File? image,
+    }) async {
+      nameRequest ??= "files";
+      var uri = Uri.parse(url);
+      var request = http.MultipartRequest("POST", uri);
+      // request.headers.addAll(_myheaders);
+      if (image != null) {
+        var length = await image.length();
+        var stream = http.ByteStream(image.openRead());
+        stream.cast();
+        var multipartFile = http.MultipartFile(nameRequest, stream, length,
+            filename: basename(image.path));
+        request.files.add(multipartFile);
+      }
+
+      // add Data to request
+      data.forEach((key, value) {
+        request.fields[key] = value;
+      });
+      // add Data to request
+      // Send Request
+      var myRequest = await request.send();
+      // For get Response Body
+      var response = await http.Response.fromStream(myRequest);
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        Map responseBody = jsonDecode(response.body);
+        return Right(responseBody);
+      } else {
+        return const Left(StatusRequest.serverFailure);
+      }
+    }}
+

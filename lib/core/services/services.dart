@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// اول ما يفتح التطبيق تنفذ
 class MyServices extends GetxService {
   late SharedPreferences mySharedPreferences;
 

@@ -1,4 +1,5 @@
 import 'package:dentist/controller/auth/login_controller.dart';
+import 'package:dentist/core/class/status_request.dart';
 import 'package:dentist/core/mycore/extentions.dart';
 import 'package:dentist/view/screen/general_widget/custom_text_form_field.dart';
 import 'package:dotted_line/dotted_line.dart';
@@ -83,6 +84,7 @@ class LogIn extends GetView<LoginController> {
       controller: controller.emailController,
       keyboardType: TextInputType.emailAddress,
       validationType: "email",
+      // validationType: "password",
     ),
   );
 
@@ -112,7 +114,9 @@ class LogIn extends GetView<LoginController> {
       color: Colors.blue,
       borderRadius: BorderRadius.circular(100),
     ),
-    child: controller.isLoading.value
+      // statusRequest = StatusRequest.loading
+    child: controller.statusRequest.value== StatusRequest.loading
+    // child: controller.isLoading.value
         ? const CircularProgressIndicator(color: Colors.white).center()
 
         : const Text(
@@ -123,7 +127,12 @@ class LogIn extends GetView<LoginController> {
           color: Colors.white),
     ).center().onTap(() =>
     // controller.formState.currentState!.validate()?
-        controller.login()
+        controller.login(
+
+          password: controller.passwordController.text,
+          username: controller.emailController.text
+
+        )
             // :null
     ),
   )
