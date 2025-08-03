@@ -30,7 +30,6 @@ class AddOnePatient extends StatelessWidget {
           autovalidateMode: AutovalidateMode.always,
           child: ListView(
             children: [
-              // _textField(controller.nameController, 'الاسم الكامل', validator: true),
 
 
             Container(

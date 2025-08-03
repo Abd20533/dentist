@@ -19,7 +19,6 @@ void main() async{
       options: DefaultFirebaseOptions.currentPlatform,
     );
   } catch (e) {
-    // سجل الخطأ أو أظهر رسالة للمستخدم
     print('Error initializing Firebase: $e');
   }
 
