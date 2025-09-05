@@ -24,7 +24,7 @@ class SignUpData {
       'password': password,
       'email': email,
     };
-    var response = await crud.postData(linkUrl: AppLinkApi.register, data: data);
+    var response = await crud.registerData(linkUrl: AppLinkApi.register, data: data);
     return response.fold((l) => l, (r) => r);
   }
 }

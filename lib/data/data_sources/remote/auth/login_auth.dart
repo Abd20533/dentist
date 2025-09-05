@@ -20,7 +20,7 @@ class LoginData {
     'password': password,
     'username': username,
     };
-    var response = await crud.postData(linkUrl: AppLinkApi.login, data: data);
+    var response = await crud.registerData(linkUrl: AppLinkApi.login, data: data);
     return response.fold((l) => l, (r) => r);
   }
 }

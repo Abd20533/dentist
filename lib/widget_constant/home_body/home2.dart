@@ -1,4 +1,4 @@
-import 'package:dentist/core/constant/my_color.dart';
+import 'package:dentist/core/constant/AppColor.dart';
 import 'package:dentist/core/mycore/extentions.dart';
 import 'package:dentist/my_import.dart';
 import 'package:dentist/widget_constant/all_widget_constant.dart';

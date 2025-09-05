@@ -2,7 +2,7 @@
 import 'dart:io';
 
 import 'package:dentist/core/constant/app_link_api.dart';
-import 'package:dentist/core/shaerd/my_cash_helper.dart';
+import 'package:dentist/core/shared/my_cash_helper.dart';
 import 'package:dio/dio.dart';
 
 class DioHelper {

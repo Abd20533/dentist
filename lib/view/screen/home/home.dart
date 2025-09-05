@@ -1,65 +1,82 @@
 
-import 'package:dentist/controller/home/PatientController.dart';
-import 'package:dentist/controller/home/build_panoramic_images_controller.dart';
-import 'package:dentist/view/screen/home/Patient/patient_home.dart';
-import 'package:dentist/view/screen/home/Patient/setPatient.dart';
+import 'package:dentist/controller/home/PatientController/PatientController.dart';
+import 'package:dentist/view/screen/home/patients/set_patient.dart';
+import 'package:dentist/view/screen/home/patients/AddPatient.dart';
 import 'package:dentist/view/screen/setting/settingView.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 
-class Home extends StatelessWidget {
-  Home({super.key});
+class Home extends StatefulWidget {
+  const Home({super.key});
 
-  final PersistentTabController _controller =
-  PersistentTabController(initialIndex: 0);
+  @override
+  State<Home> createState() => _HomeState();
+}
 
-  List<Widget> _buildScreens() {
-    return [
-      PatientDashboard(),
-      Patient(),
-      DoctorProfilePage(),
-    ];
-  }
+class _HomeState extends State<Home> {
+  int _currentIndex = 0;
 
-  List<PersistentBottomNavBarItem> _navBarsItems() {
-    return [
-      PersistentBottomNavBarItem(
-        icon: const Icon(Icons.dashboard),
-        title: ("Home".tr),
-        activeColorPrimary: Colors.blue,
-        inactiveColorPrimary: Colors.grey,
-      ),
-      PersistentBottomNavBarItem(
-        icon: const Icon(Icons.person),
-        title: ("Patient".tr),
-        activeColorPrimary: Colors.blue,
-        inactiveColorPrimary: Colors.grey,
-      ),
-      PersistentBottomNavBarItem(
-        icon: const Icon(Icons.settings),
-        title: ("setting".tr),
-        activeColorPrimary: Colors.blue,
-        inactiveColorPrimary: Colors.grey,
-      ),
-    ];
+  final List<Widget> _screens = [
+    Patient(),
+    AddPatient(),
+    DoctorProfilePage(),
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    Get.put(PatientController());
   }
 
   @override
   Widget build(BuildContext context) {
-    Get.put(BuildPanoramicImagesController());
-    Get.put(PatientController());
-
-    return PersistentTabView(
-      context,
-      controller: _controller,
-      screens: _buildScreens(),
-      items: _navBarsItems(),
-      backgroundColor: Colors.white,
-      navBarStyle: NavBarStyle.style6, // يمكنك تغييره حسب التصميم
+    return Scaffold(
+      body: _screens[_currentIndex],
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              blurRadius: 20,
+              color: Colors.black.withOpacity(0.1),
+            )
+          ],
+        ),
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+            child: GNav(
+              gap: 8, // المسافة بين الأيقونة والكلمة
+              backgroundColor: Colors.white,
+              color: Colors.grey,
+              activeColor: Colors.teal,
+              tabBackgroundColor: Colors.blue.withOpacity(0.1),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              tabs: [
+                GButton(
+                  icon: Icons.dashboard,
+                  text: "Home".tr,
+                ),
+                GButton(
+                  icon: Icons.add_box_outlined,
+                  text: "Add".tr,
+                ),
+                GButton(
+                  icon: Icons.settings,
+                  text: "Setting".tr,
+                ),
+              ],
+              selectedIndex: _currentIndex,
+              onTabChange: (index) {
+                setState(() {
+                  _currentIndex = index;
+                });
+              },
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
-
-
-

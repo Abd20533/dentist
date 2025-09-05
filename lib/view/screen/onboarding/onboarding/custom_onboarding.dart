@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:dentist/controller/on_boarding_controller.dart';
-import 'package:dentist/core/constant/my_color.dart';
+import 'package:dentist/core/constant/AppColor.dart';
 
 class CustomButtonOnBoarding extends GetView<OnBoardingControllerImp> {
   const CustomButtonOnBoarding({super.key});
@@ -20,7 +20,7 @@ class CustomButtonOnBoarding extends GetView<OnBoardingControllerImp> {
           controller.next();
         },
         textColor: Colors.white,
-        color: AppMyColor.blue2,
+        color: AppMyColor.teal,
         child: const Text(
           "NEXT",
           style: TextStyle(fontSize: 16),

@@ -1,11 +1,13 @@
 
 
+import 'package:dentist/view/screen/auth/forgot_password/reset_password.dart';
+import 'package:dentist/view/screen/auth/forgot_password/send_email.dart';
+import 'package:dentist/view/screen/auth/forgot_password/verification.dart';
 import 'package:dentist/view/screen/auth/login/login.dart';
 import 'package:dentist/view/screen/auth/register/register.dart';
 import 'package:dentist/view/screen/auth/started_r/get_started.dart';
 import 'package:dentist/view/screen/home/home.dart';
-import 'package:dentist/view/screen/home/Patient/setPatient.dart';
-import 'package:dentist/view/screen/home/Patient/AddOnePatient.dart';
+import 'package:dentist/view/screen/home/patients/set_patient.dart';
 import 'package:dentist/view/screen/onboarding/on_baording.dart';
 import 'package:dentist/view/screen/setting/settingView.dart';
 import 'package:dentist/view/screen/splash/splash.dart';
@@ -50,7 +52,9 @@ List<GetPage<double>>? routesGetX = [
   GetPage(name: '/login', page: () => LogIn()),
   GetPage(name: '/home', page: () => Home()),
   GetPage(name: '/patient', page: () => Patient()),
-  GetPage(name: '/patientForm', page: () => AddOnePatient()),
+  GetPage(name: '/sendEmail', page: () => SendEmail()),
+  GetPage(name: '/verificationView', page: () => VerificationView()),
+  // GetPage(name: '/patientForm', page: () => AddOnePatient()),
   // GetPage(name: '/patientDashboard', page: () => PatientDashboard()),
 
 

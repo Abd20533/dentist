@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:dentist/view/screen/auth/started_r/get_started.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:dentist/core/constant/routes_name.dart';
 import 'package:dentist/core/services/services.dart';
 import 'package:dentist/data/data_sources/static/static.dart';
 

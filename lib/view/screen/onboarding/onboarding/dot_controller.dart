@@ -1,5 +1,5 @@
 import 'package:dentist/controller/on_boarding_controller.dart';
-import 'package:dentist/core/constant/my_color.dart';
+import 'package:dentist/core/constant/AppColor.dart';
 import 'package:dentist/data/data_sources/static/static.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +24,7 @@ class DotControllerOnBoarding extends StatelessWidget {
                 width: controller.currentPage == index ? 40 : 15,
                 height: controller.currentPage == index ? 24 : 15,
                 decoration: BoxDecoration(
-                    color: controller.currentPage ==index ?AppMyColor.blue2:Colors.grey,
+                    color: controller.currentPage ==index ?AppMyColor.teal:Colors.grey,
                     borderRadius: BorderRadius.circular(20)),
                 duration: const Duration(milliseconds: 900),
               ),

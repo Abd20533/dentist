@@ -1,12 +1,7 @@
-
-import 'package:dentist/controller/auth/register_controller.dart';
-import 'package:dentist/core/mycore/extentions.dart';
-import 'package:dentist/view/screen/general_widget/custom_text_form_field.dart';
-import 'package:dotted_line/dotted_line.dart';
-import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+
+import 'package:flutter/material.dart';
+import 'package:dentist/my_import.dart';
 
 class Register extends GetView<RegisterController> {
   const Register({super.key});
@@ -27,8 +22,8 @@ class Register extends GetView<RegisterController> {
               _buildTitle(),
 
 
-              _buildTextField(label: "firstName",controller:controller.firstNameController ,keyboardType: TextInputType.name,obscureText: false,validationType:"name", ),
-              _buildTextField(label: "lastName",controller:controller.lastNameController ,keyboardType: TextInputType.name,obscureText: false,validationType:"name", ),
+              _buildTextField(label: "enter First Name",controller:controller.firstNameController ,keyboardType: TextInputType.name,obscureText: false,validationType:"name", ),
+              _buildTextField(label: "enter Last Name",controller:controller.lastNameController ,keyboardType: TextInputType.name,obscureText: false,validationType:"name", ),
               _buildTextField(label: "Email",controller:controller.emailController ,keyboardType: TextInputType.emailAddress,obscureText: false,validationType:"email", ),
 
               _buildPasswordField(),
@@ -66,12 +61,17 @@ class Register extends GetView<RegisterController> {
     return Padding(
       padding: const EdgeInsets.only(top: 40.0, bottom: 20),
       child: Container(
-        width: Get.width,
+        width: Get.width/4 ,
         height: Get.height / 4,
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/tooth3.jpg"),
-            fit: BoxFit.fill,
+
+            // image: AssetImage("assets/images/tooth3.jpg",),
+            image: AssetImage( "assets/images/logo/logoTooth.png"),
+
+            fit: BoxFit.contain,
+            // fit: BoxFit.fill,
+
           ),
         ),
       ),
@@ -145,7 +145,7 @@ class Register extends GetView<RegisterController> {
       height: 40,
       width: Get.width,
       decoration: BoxDecoration(
-        color: Colors.blue,
+        color: Colors.teal,
         borderRadius: BorderRadius.circular(100),
       ),
       child: controller.isLoading.value
@@ -237,7 +237,7 @@ class Register extends GetView<RegisterController> {
               TextSpan(
                 text: 'Go LogIn',
                 style: const TextStyle(
-                  color: Colors.blue,
+                  color: Colors.teal,
                   fontWeight: FontWeight.bold,
                 ),
                 recognizer: TapGestureRecognizer()

@@ -1,4 +1,4 @@
-import 'package:dentist/core/constant/my_color.dart';
+import 'package:dentist/core/constant/AppColor.dart';
 import 'package:flutter/material.dart';
 
 class Home1 extends StatelessWidget {

@@ -11,7 +11,7 @@ import 'package:path/path.dart';
 import 'dart:io';
 
 class Crud {
-  Future<Either<StatusRequest, dynamic>> postData({
+  Future<Either<StatusRequest, dynamic>> registerData({
     required String linkUrl,
     required Map data,
   }) async {
@@ -42,16 +42,46 @@ class Crud {
 
   }
 
+  Future<Either<StatusRequest, dynamic>> postData({
+    required String linkUrl,
+    required Map data,
+  }) async {
+    print("Crud0");
+
+    if (await checkInternet()) {
+
+      print("you have internetr");
+      dynamic response=await DioHelper.myPost(endPont: linkUrl, myData: data);
+      print("response is: ${response.toString()}");
+
+
+
+
+
+      if (response.statusCode! > 199 &&  response.statusCode! <  300 ) {
+
+        print(response.statusCode);
+        print("Crud0");
+        return Right(response);}
+
+      else {
+        return const Left(StatusRequest.serverException);
+      }
+    }
+    return const Left(StatusRequest.serverFailure);
+
+
+  }
+
     Future<Either<StatusRequest, Map>> addRequestWithImageOne({
       String? nameRequest,
       required Map data,
-      required String url,
+      required String linkUrl,
       required File? image,
     }) async {
       nameRequest ??= "files";
-      var uri = Uri.parse(url);
+      var uri = Uri.parse(linkUrl);
       var request = http.MultipartRequest("POST", uri);
-      // request.headers.addAll(_myheaders);
       if (image != null) {
         var length = await image.length();
         var stream = http.ByteStream(image.openRead());
@@ -76,5 +106,130 @@ class Crud {
       } else {
         return const Left(StatusRequest.serverFailure);
       }
-    }}
+    }
+
+
+
+
+
+  Future<Either<StatusRequest, dynamic>> getData({
+    required String linkUrl,
+     Map? data,
+  }) async {
+    print("Crud is : getData");
+
+    if (await checkInternet()) {
+
+      print("you have internetr  getData");
+      dynamic response=await DioHelper.myGet(endPont: linkUrl, myData: data);
+      print("response is: ${response.toString()}");
+
+
+
+
+
+      if (response.statusCode! > 199 &&  response.statusCode! <  300 ) {
+
+        print(response.statusCode);
+        print("Crud0");
+        return Right(response);}
+
+      else {
+        return const Left(StatusRequest.serverException);
+      }
+    }
+    return const Left(StatusRequest.serverFailure);
+
+
+  }
+
+
+
+
+  Future<Either<StatusRequest, dynamic>> postRequestWithImageOneDio({
+
+
+    String? nameRequest,
+    required Map<String, dynamic> data,
+    required String linkUrl,
+    required File? image,
+
+  }) async {
+
+    print("Crud is : postRequestWithImageOne");
+
+    if (await checkInternet()) {
+
+      print("you have internet  getData");
+      // dynamic response=await DioHelper.myGet(endPont: linkUrl, myData: data);
+      dynamic response=await DioHelper.postRequestWithImageOne(
+          image: image,
+          data: data,
+          linkUrl: linkUrl,
+
+
+          );
+
+
+      print("i in crud in  postRequestWithImageOneDio");
+      print("response is: ${response.toString()}");
+
+
+
+
+
+      if (response.statusCode! > 199 &&  response.statusCode! <  300 ) {
+
+        print(response.statusCode);
+        print("Crud0");
+        return Right(response);}
+
+      else {
+        return const Left(StatusRequest.serverException);
+      }
+    }
+    return const Left(StatusRequest.serverFailure);
+
+
+  }
+
+
+
+
+
+
+
+
+  Future<Either<StatusRequest, dynamic>> deleteData({
+    required String linkUrl,
+    required Map data,
+  }) async {
+
+    if (await checkInternet()) {
+
+      print("you have internetr");
+      dynamic response=await DioHelper.myDelete(endPont: linkUrl, myData: data);
+      print("response is: ${response.toString()}");
+
+
+
+
+
+      if (response.statusCode! > 199 &&  response.statusCode! <  300 ) {
+
+        print(response.statusCode);
+        print("Crud0");
+        return Right(response);}
+
+      else {
+        return const Left(StatusRequest.serverException);
+      }
+    }
+    return const Left(StatusRequest.serverFailure);
+
+
+  }
+
+
+}
 

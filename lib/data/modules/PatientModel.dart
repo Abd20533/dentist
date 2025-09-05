@@ -1,7 +1,7 @@
 
 
 
-import 'package:dentist/data/modules/ModelMedication.dart';
+import 'package:dentist/data/model/Patient/MedicationModel.dart';
 import 'package:dentist/data/modules/ModelRadiograph.dart';
 import 'package:dentist/data/modules/ModelTreatment.dart';
 

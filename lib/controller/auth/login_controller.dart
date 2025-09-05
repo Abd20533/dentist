@@ -1,14 +1,6 @@
+import 'package:dentist/my_import.dart';
+import 'package:dentist/view/screen/auth/forgot_password/send_email.dart';
 
-import 'package:dentist/core/class/status_request.dart';
-import 'package:dentist/core/constant/app_name_routes.dart';
-import 'package:dentist/core/functions/check_internet.dart';
-import 'package:dentist/core/functions/handling_data_controller.dart';
-import 'package:dentist/core/mycore/validation.dart';
-import 'package:dentist/core/services/services.dart';
-import 'package:dentist/core/shaerd/my_cash_helper.dart';
-import 'package:dentist/data/data_sources/remote/auth/ModeleLogin.dart';
-import 'package:dentist/data/data_sources/remote/auth/login_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LoginController extends GetxController {
@@ -23,6 +15,7 @@ class LoginController extends GetxController {
   late TextEditingController emailController = TextEditingController();
   late TextEditingController passwordController = TextEditingController();
   final RxBool isLoading = false.obs;
+
 
   final RxBool rememberMe = false.obs;
 
@@ -66,32 +59,41 @@ class LoginController extends GetxController {
 
  ) async {
    if(await checkFormState()){
-   isLoading(true);
+
+     isLoading(true);
    errorMessage('');
    statusRequest.value = StatusRequest.loading;
    await loginData.postData(
-     // username: "ookl@gmail.com",
      username: username,
      password:password,
      // password:"123mm123",
    ).then((value) async {
-     print(value.statusCode);
      if (value.statusCode == 200) {
        modelLogin=ModelLogin.formJson(value.data);
-       CashHelper.putUser(userToken:modelLogin.access );
 
-       print("${modelLogin.access} ________is_________---");
-       print(value.data);
-        statusRequest.value = handlingDataController(value.data);
-       statusRequest.value = StatusRequest.success;
-       isLoading(false);
-       navigateToHome();
+       print("Before storage - Token: ${CashHelper.getUserToken()}");
+       await CashHelper.putUser(userToken: "");
 
-       // isLoading(false);
+       await CashHelper.putUser(userToken: modelLogin.access);
+        DioHelper.updateToken(modelLogin.access);
+       await DioHelper.init();
+       print("After storage - Token: ${CashHelper.getUserToken()}");
+       print("Model token: ${modelLogin.access}");
+
+       Future.delayed(const Duration(seconds: 2));
+if(CashHelper.getUserToken()!.isNotEmpty){
+  statusRequest.value = handlingDataController(value.data);
+  statusRequest.value = StatusRequest.success;
+  isLoading(false);
+  Future.delayed(const Duration(seconds: 2), () {
+     navigateToHome();
+  });
+
+
+}
 
 
 
-       print(statusRequest);
 
        update();
 
@@ -101,7 +103,6 @@ class LoginController extends GetxController {
    }).catchError((error) {
      isLoading(false);
 
-     print(error.toString());
      update();
 
    });
@@ -127,66 +128,14 @@ class LoginController extends GetxController {
    }else{
      return false;}
  }
- Future<void> login1() async {
-    try {
-      print("login");
-      isLoading(true);
-      errorMessage('');
 
-      if (formState.currentState!.validate()) {
-        statusRequest.value = StatusRequest.loading;
-        var data = await loginData.postData(
-          // email: emailController.text,
-          // username: emailController.text,
-          // password: passwordController.text,
-
-        username: "ookl@gmail.com",
-          password:"123mm123",
-        );
-
-        var response = data.data;
-        statusRequest.value = handlingDataController(response);
-print(statusRequest);
-        if (statusRequest == StatusRequest.success) {
-          if (response['status'] == 'success') {
-            if (response['data']['users_approve'].toString() == '1') {
-              storeData(response['data']);
-              Get.offAllNamed(AppNameRoutes.homePage);
-            } else {
-
-            }
-          } else {
-            Get.defaultDialog(
-              title: "Warning",
-              middleText: "Email or Password not correct",
-            );
-            statusRequest.value = StatusRequest.failure;
-          }
-        }
-        update();
-
-
-
-
-    }else {}
-
-
-
-    } catch (e) {
-      errorMessage(e.toString());
-      Get.snackbar('error'.tr, e.toString());
-      print('error is ${e.toString()}');
-    } finally {
-      isLoading(false);
-      // update();
-    }
-  }
 
   void navigateToRegister() => Get.offNamed('/register');
 
-  // void forgotPassword() => Get.toNamed('/forgot-password');
-  void forgotPassword() => Get.toNamed('/home');
-  // void forgotPassword() => Get.toNamed('/patientDashboard');
+  // void forgotPassword() => Get.toNamed('/home');
+  // void forgotPassword() => Get.to(SendEmail());
+  void forgotPassword() => Get.offNamed('/sendEmail');
+
 
   void socialLogin(String provider) {
     Get.snackbar('coming_soon'.tr, 'login_with_$provider'.tr);

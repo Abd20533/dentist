@@ -1,7 +1,7 @@
 
 import 'package:animate_do/animate_do.dart';
-import 'package:dentist/core/mycore/validation.dart';
 import 'package:flutter/material.dart';
+import 'package:dentist/my_import.dart';
 
 class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField({
@@ -45,7 +45,7 @@ class CustomTextFormField extends StatelessWidget {
 
     }
     // if (states.contains(WidgetState.error)) return Colors.black;
-    if (states.contains(WidgetState.focused)) return Colors.blue;
+    if (states.contains(WidgetState.focused)) return Colors.teal;
     return Colors.grey;
   }
 
@@ -88,7 +88,7 @@ class CustomTextFormField extends StatelessWidget {
         // validator: validator,
         keyboardType: keyboardType,
         obscureText: obscureText,
-        cursorColor: Colors.blue, // <-- هنا تحديد لون المؤشر
+        cursorColor: Colors.teal,
 
         decoration: InputDecoration(
           labelText: label,
@@ -98,7 +98,6 @@ class CustomTextFormField extends StatelessWidget {
             horizontal: 20,
           ),
 
-          // حالة الحدود الديناميكية
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(borderRadius),
             borderSide: BorderSide(
@@ -110,7 +109,7 @@ class CustomTextFormField extends StatelessWidget {
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(borderRadius),
             borderSide: const BorderSide(
-              color: Colors.blue,
+              color: Colors.teal,
               width: 2.0,
             ),
           ),
@@ -118,7 +117,6 @@ class CustomTextFormField extends StatelessWidget {
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(borderRadius),
             borderSide: BorderSide(
-              // eeeeeeeeeeeeeeeeeeeeeeeeeeee
 
               color: errorColor,
               width: 1,
@@ -129,13 +127,11 @@ class CustomTextFormField extends StatelessWidget {
             borderRadius: BorderRadius.circular(borderRadius),
             borderSide:  BorderSide(
 
-              // eeeeeeeeeeeeeeeeeeeeeeeeeeee
               color: errorColor,
               width: 1.0,
             ),
           ),
 
-          // لون النص الديناميكي
           labelStyle: WidgetStateTextStyle.resolveWith(
                 (states) => TextStyle(
               color: _getBorderColor(states),
@@ -143,12 +139,13 @@ class CustomTextFormField extends StatelessWidget {
             ),
           ),
 
-          // أيقونة الظهور الشرطية
           suffixIcon: showIcon
               ? IconButton(
             icon: Icon(
               obscureText ? Icons.visibility_off : Icons.visibility,
-              color: _getBorderColor({MaterialState.focused}),
+              // color: _getBorderColor({MaterialState.focused}),
+              color: _getBorderColor({WidgetState.focused}),
+
             ),
             onPressed:   onIconTap,
           )

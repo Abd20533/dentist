@@ -1,12 +1,7 @@
-import 'package:dentist/controller/auth/login_controller.dart';
-import 'package:dentist/core/class/status_request.dart';
-import 'package:dentist/core/mycore/extentions.dart';
-import 'package:dentist/view/screen/general_widget/custom_text_form_field.dart';
-import 'package:dotted_line/dotted_line.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:get/get.dart';
+import 'package:dentist/my_import.dart';
 
 class LogIn extends GetView<LoginController> {
   const LogIn({super.key});
@@ -58,12 +53,16 @@ class LogIn extends GetView<LoginController> {
   Widget _buildHeaderImage() => Padding(
     padding: const EdgeInsets.only(top: 20.0, bottom: 20),
     child: Container(
-      width: Get.width,
+      width: Get.width/2,
       height: Get.height / 4,
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage("assets/images/tooth3.jpg"),
-          fit: BoxFit.fill,
+          // image: AssetImage( "assets/images/logo/logoTooth1.png"),
+          image: AssetImage( "assets/images/logo/logoTooth.png"),
+
+          // image: AssetImage("assets/images/tooth3.jpg"),
+          fit: BoxFit.contain,
+          // fit: BoxFit.fill,
         ),
       ),
     ),
@@ -111,7 +110,7 @@ class LogIn extends GetView<LoginController> {
     height: 40,
     width: Get.width,
     decoration: BoxDecoration(
-      color: Colors.blue,
+      color: Colors.teal,
       borderRadius: BorderRadius.circular(100),
     ),
       // statusRequest = StatusRequest.loading
@@ -136,7 +135,6 @@ class LogIn extends GetView<LoginController> {
             // :null
     ),
   )
-      // .onTap(controller.isLoading.value ? null : controller.login)
   );
 
   Widget _buildForgotPassword() => Padding(
@@ -150,7 +148,7 @@ class LogIn extends GetView<LoginController> {
               TextSpan(
                 text: 'forget your password?',
                 style: const TextStyle(
-                  color: Colors.blue,
+                  color: Colors.teal,
                   fontWeight: FontWeight.bold,
                 ),
                 recognizer: TapGestureRecognizer()
@@ -218,6 +216,9 @@ class LogIn extends GetView<LoginController> {
 
 
 
+
+
+
   Widget _buildRegisterLink() {
     return Padding(
       padding: const EdgeInsets.all(18.0),
@@ -234,7 +235,8 @@ class LogIn extends GetView<LoginController> {
                       TextSpan(
                         text: 'Register',
                         style: const TextStyle(
-                          color: Colors.blue,
+
+                          color: Colors.teal,
                           fontWeight: FontWeight.bold,
                         ),
                         recognizer: TapGestureRecognizer()

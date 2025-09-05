@@ -1,10 +1,7 @@
-import 'package:dentist/binding.dart';
-import 'package:dentist/core/class/crud_with_dio.dart';
-import 'package:dentist/core/localization/change_local.dart';
-import 'package:dentist/core/localization/translated.dart';
-import 'package:dentist/core/services/services.dart';
-import 'package:dentist/core/shaerd/my_cash_helper.dart';
-import 'package:dentist/routes.dart';
+
+import 'package:dentist/my_import.dart';
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -28,6 +25,7 @@ void main() async{
     DeviceOrientation.portraitDown,
   ]);
   await CashHelper.init();
+
   await DioHelper.init();
 
 

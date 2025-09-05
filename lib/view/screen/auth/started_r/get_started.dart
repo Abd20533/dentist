@@ -1,11 +1,7 @@
+import 'package:dentist/my_import.dart';
 
-import 'package:dentist/controller/get_started_controller.dart';
-import 'package:dentist/core/mycore/extentions.dart';
-import 'package:dentist/view/screen/auth/started_r/widget.dart';
-import 'package:dotted_line/dotted_line.dart';
-import 'package:flutter/gestures.dart';
+
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 class GetStarted extends GetView<GetStartedController>  {
@@ -23,13 +19,29 @@ class GetStarted extends GetView<GetStartedController>  {
         children: [
           Padding(
             padding: const EdgeInsets.only(top: 80.0, bottom: 20),
+            // child: Container(
+            //   width: MediaQuery.of(context).size.width,
+            //   height: MediaQuery.of(context).size.height / 3,
+            //   decoration: const BoxDecoration(
+            //     image: DecorationImage(
+            //       image: AssetImage("assets/images/tooth3.jpg"),
+            //       fit: BoxFit.fill,
+            //     ),
+            //   ),
+            // ),
+
+
             child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height / 3,
+              width: Get.width/1.5,
+              height: Get.height / 4,
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage("assets/images/tooth3.jpg"),
-                  fit: BoxFit.fill,
+                  // image: AssetImage( "assets/images/logo/logoTooth1.png"),
+                  image: AssetImage( "assets/images/logo/logoTooth.png"),
+
+                  // image: AssetImage("assets/images/tooth3.jpg"),
+                  fit: BoxFit.contain,
+                  // fit: BoxFit.fill,
                 ),
               ),
             ),
@@ -62,7 +74,7 @@ class GetStarted extends GetView<GetStartedController>  {
             iconRed: Colors.black,
           ),
 
-          Container(
+          SizedBox(
             height: 40,
             child: Row(
               children: [
@@ -98,7 +110,7 @@ class GetStarted extends GetView<GetStartedController>  {
               height: 40,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                color: Colors.blue,
+                color:AppMyColor.teal,
                 borderRadius: BorderRadius.circular(100),
                 border: Border.all(color: Colors.white, width: 1),
               ),
@@ -126,11 +138,12 @@ class GetStarted extends GetView<GetStartedController>  {
                     TextSpan(
                       text: 'sign up',
                       style: const TextStyle(
-                        color: Colors.blue,
+                        // color: Colors.blue,
+                        color:AppMyColor.teal,
                         fontWeight: FontWeight.bold,
                       ),
                       // recognizer: TapGestureRecognizer()
-                      //   ..onTap = controller.handleSignUp, // استخدام الدالة من الكونترولر
+                      //   ..onTap = controller.handleSignUp,
                     ),
                   ],
                 ),

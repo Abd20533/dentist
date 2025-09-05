@@ -1,8 +1,7 @@
-import 'package:dentist/core/mycore/extentions.dart';
 import 'package:flutter/material.dart';
 
 
-// "Sign in with Facebook"
+import 'package:dentist/my_import.dart';
 
 
 

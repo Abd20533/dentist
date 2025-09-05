@@ -1,5 +1,6 @@
 
 import 'package:dentist/controller/setting/settingController.dart';
+import 'package:dentist/core/constant/AppColor.dart';
 import 'package:dentist/core/localization/change_local.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,7 +14,10 @@ class DoctorProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
+      backgroundColor: AppMyColor.backgroundColorApp,
       appBar: AppBar(
+        backgroundColor: AppMyColor.backgroundColorApp,
         title: Text('Doctor Profile'.tr),
         actions: [
           IconButton(

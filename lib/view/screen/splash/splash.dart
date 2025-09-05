@@ -8,7 +8,6 @@ class Splash extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ربط الكنترولر
     Get.put(SplashController());
 
     return Scaffold(
@@ -26,13 +25,14 @@ class Splash extends StatelessWidget {
                 height: MediaQuery.of(context).size.height / 2,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage("assets/images/tooth.jpg"),
+                    // image: AssetImage("assets/images/tooth.jpg"),
+                    image: AssetImage("assets/images/logo/logoTooth.png"),
                   ),
                 ),
               ),
             ),
             const Text(
-              "DentaGuard Pro",
+              "DentGuard Pro",
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26),
             ),
           ],

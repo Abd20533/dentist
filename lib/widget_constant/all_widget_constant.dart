@@ -1,10 +1,10 @@
 import 'dart:io';
 
 import 'package:animate_do/animate_do.dart';
-import 'package:dentist/core/constant/my_color.dart';
+import 'package:dentist/core/constant/AppColor.dart';
 import 'package:dentist/core/mycore/extentions.dart';
 import 'package:dentist/core/mycore/validation.dart';
-import 'package:dentist/core/shaerd/my_cash_helper.dart';
+import 'package:dentist/core/shared/my_cash_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:get/get.dart';
@@ -187,7 +187,7 @@ Widget customTextFormField444({
             borderSide: const BorderSide(
               color: Colors.red,
               style: BorderStyle.solid,
-              width: 2, // <-- يمكنك تغيير عرض الحد أيضًا
+              width: 2,
             )),
 
         isDense: true,
@@ -287,7 +287,7 @@ Widget textFormFieldApp({
                 borderSide: const BorderSide(
                   color: Colors.red,
                   style: BorderStyle.solid,
-                  width: 2, // <-- يمكنك تغيير عرض الحد أيضًا
+                  width: 2,
                 )),
 
             suffixIcon: IconButton(onPressed: callback,
@@ -365,7 +365,7 @@ Widget textFormFieldAppNormal({
               borderSide: const BorderSide(
                 color: Colors.red,
                 style: BorderStyle.solid,
-                width: 2, // <-- يمكنك تغيير عرض الحد أيضًا
+                width: 2,
               )),
 
           suffixIcon:
@@ -395,7 +395,6 @@ void myShowPopup(BuildContext context,
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        // title: const Text('رسالة منبثقة'),
         title: SizedBox(
           height: 100,
           width: double.infinity,
@@ -408,7 +407,6 @@ void myShowPopup(BuildContext context,
           ),
         ),
         content: Text(text),
-        //   content: const Text('هذه الرسالة المنبثقة ستختفي بعد ثوانٍ قليلة'),
         actions: <Widget>[
           ElevatedButton(
             onPressed: () {
