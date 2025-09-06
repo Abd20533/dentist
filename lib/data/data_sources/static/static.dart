@@ -1,5 +1,5 @@
 import 'package:dentist/core/constant/image_asset.dart';
-import 'package:dentist/data/modules/on_boarding_modules.dart';
+import 'package:dentist/model/on_boarding_modules.dart';
 
 List<OnBoardingModel> onBoardingModel = [
   OnBoardingModel(

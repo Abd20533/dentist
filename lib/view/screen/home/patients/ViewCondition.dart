@@ -1,5 +1,7 @@
 
 
+import 'package:dentist/model/Patient/ConditionModel.dart';
+import 'package:dentist/model/Patient/PatientModel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:dentist/my_import.dart';

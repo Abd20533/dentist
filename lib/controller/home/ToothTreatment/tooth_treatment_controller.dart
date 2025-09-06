@@ -315,7 +315,8 @@ class ToothTreatmentController extends GetxController {
 
 
       }
-      Get.snackbar("فشل", "!!!!!!فشل  حذف  الحالة!!!!!!!! ");
+      else{
+      Get.snackbar("فشل", "!!!!!!فشل  حذف  الحالة!!!!!!!! ");}
 
       isLoading(false);
     }).catchError((error) {

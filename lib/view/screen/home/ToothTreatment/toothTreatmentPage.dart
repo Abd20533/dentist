@@ -141,11 +141,11 @@ class ToothTreatmentPage extends StatelessWidget {
                                           padding: const EdgeInsets.all(8.0),
                                           child: SizedBox(
                                             child: Row(
-                                              spacing: 8,
+                                              spacing: 3,
                                               children: [
                                                 Icon(Icons.merge_type,size: 20,color: AppMyColor.teal, ),
                                                 Text(
-                                                    "treatment Type: ",
+                                                    "treatment Type:",
                                                   style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14,color: AppMyColor.black87),
                                                 ),
                                                 Text(

@@ -57,7 +57,7 @@ class AllergiesController extends GetxController {
                 patientId,
                 nameController.text.trim(),
                 descriptionController.text.trim().isEmpty
-                    ? "-" // افتراضي لو ما كتب وصف
+                    ? "-"
                     : descriptionController.text.trim(),
               );
 

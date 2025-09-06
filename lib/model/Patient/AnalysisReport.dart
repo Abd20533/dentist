@@ -1,5 +1,5 @@
 import 'package:dentist/core/constant/app_link_api.dart';
-import 'package:dentist/data/model/Patient/FindingModel.dart';
+import 'package:dentist/model/Patient/FindingModel.dart';
 
 class AnalysisReport {
   final int id;

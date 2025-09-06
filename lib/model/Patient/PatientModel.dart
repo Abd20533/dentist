@@ -1,9 +1,4 @@
-import 'package:dentist/data/model/Patient/AllergiesModel.dart';
-import 'package:dentist/data/model/Patient/AnalysisReport.dart';
-import 'package:dentist/data/model/Patient/ConditionModel.dart';
-import 'package:dentist/data/model/Patient/RadiographModel.dart';
-import 'package:dentist/data/model/Patient/ToothTreatmentModel.dart';
-import 'package:dentist/data/model/Patient/MedicationModel.dart';
+
 
 
 // {
@@ -19,6 +14,13 @@ import 'package:dentist/data/model/Patient/MedicationModel.dart';
 // "age": 22
 // },
 
+
+import 'package:dentist/model/Patient/AllergiesModel.dart';
+import 'package:dentist/model/Patient/AnalysisReport.dart';
+import 'package:dentist/model/Patient/ConditionModel.dart';
+import 'package:dentist/model/Patient/MedicationModel.dart';
+import 'package:dentist/model/Patient/RadiographModel.dart';
+import 'package:dentist/model/Patient/ToothTreatmentModel.dart';
 
 class PatientModel {
   final int id;

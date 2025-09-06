@@ -4,6 +4,7 @@ import 'package:dentist/view/screen/home/Condition/condition_view.dart';
 import 'package:dentist/view/screen/home/ToothTreatment/toothTreatmentPage.dart';
 import 'package:dentist/view/screen/home/Medication/ViewMedical.dart';
 import 'package:dentist/view/screen/home/Radiograph/ViewPanoramaRays.dart';
+import 'package:dentist/view/screen/home/analysis/view_analysis.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:dentist/my_import.dart';
@@ -151,7 +152,13 @@ class ViewPatientDetailsPage extends StatelessWidget {
                         icon: FontAwesomeIcons.clipboardList,title: "Analysis Reports"
 
                         ,width: MediaQuery.of(context).size.width/2.5
-                        , height:MediaQuery.of(context).size.width/3
+                        , height:MediaQuery.of(context).size.width/3,
+                    onPressed: () {
+
+
+        Get.to(()=>ViewAnalysis(patientId: patient.id.toString()));
+        // Get.to(()=>ToothClassificationView(patientId: patient.id.toString()));
+        },
 
 
                     ),
