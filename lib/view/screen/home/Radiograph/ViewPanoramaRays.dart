@@ -1,4 +1,5 @@
 
+import 'package:dentist/view/screen/home/analysis/view_analysis_for_one_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:dentist/my_import.dart';
@@ -221,7 +222,7 @@ class ViewPanoramaRays extends StatelessWidget {
                                                                                   icon: Icon(
                                             Icons
                                                 .analytics_outlined,
-                                            size: 40,
+                                            size: 32,
                                             color: Colors
                                                 .teal.shade200,
                                                                                   ),
@@ -229,9 +230,23 @@ class ViewPanoramaRays extends StatelessWidget {
                                           );
                                     })
                                         : const SizedBox(height: 30),
+                            IconButton(onPressed: (){
+
+                              Get.to(() => ViewAnalysisForOneImage(
+                                patientId: patient.id.toString(),
+                                radiographsId: radiograph.id.toString(),
+                              ));
+
+
+                            },
+                                icon:  Icon(Icons.visibility,
+                                  size: 32, color: Colors.teal.shade200,)),
+
+
+
                                     IconButton(
                                       icon: const Icon(Icons.delete,
-                                          size: 40, color: Colors.red),
+                                          size: 32, color: Colors.red),
                                       onPressed: () {
                                         Get.dialog(
                                           AlertDialog(
@@ -270,6 +285,8 @@ class ViewPanoramaRays extends StatelessWidget {
                                         );
                                       },
                                     ),
+
+
                                   ],
 
 

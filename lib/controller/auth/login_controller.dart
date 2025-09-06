@@ -1,5 +1,6 @@
 import 'package:dentist/my_import.dart';
 import 'package:dentist/view/screen/auth/forgot_password/send_email.dart';
+import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
@@ -79,6 +80,10 @@ class LoginController extends GetxController {
        await DioHelper.init();
        print("After storage - Token: ${CashHelper.getUserToken()}");
        print("Model token: ${modelLogin.access}");
+       Get.snackbar("نجاح", "تم إنشاء الحساب بنجاح 🎉",
+           snackPosition: SnackPosition.BOTTOM,
+           backgroundColor: Colors.green.shade100,
+           colorText: Colors.black);
 
        Future.delayed(const Duration(seconds: 2));
 if(CashHelper.getUserToken()!.isNotEmpty){
@@ -98,9 +103,23 @@ if(CashHelper.getUserToken()!.isNotEmpty){
        update();
 
      }
+
+     else{
+
+
+       Get.snackbar("خطأ", "فشل في إنشاء الحساب: ${value.statusMessage ?? "تحقق من البيانات"}",
+           snackPosition: SnackPosition.BOTTOM,
+           backgroundColor: Colors.red.shade100,
+           colorText: Colors.black);
+     }
      isLoading(false);
 
    }).catchError((error) {
+
+     Get.snackbar("خطأ", "حدث خطأ أثناء التسجيل: $error",
+         snackPosition: SnackPosition.BOTTOM,
+         backgroundColor: Colors.red.shade100,
+         colorText: Colors.black);
      isLoading(false);
 
      update();
@@ -109,6 +128,10 @@ if(CashHelper.getUserToken()!.isNotEmpty){
  }
   else
   {
+    Get.snackbar("تنبيه", "الرجاء التأكد من صحة البيانات المدخلة أو الاتصال بالإنترنت",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.orange.shade100,
+        colorText: Colors.black);
     statusRequest.value = StatusRequest.noInternet;
 
 
@@ -121,11 +144,21 @@ if(CashHelper.getUserToken()!.isNotEmpty){
    if (formState.currentState!.validate()) {
 
      if (await checkInternet()==false) {
+       Get.snackbar("خطأ", "لا يوجد اتصال بالإنترنت",
+           snackPosition: SnackPosition.BOTTOM,
+           backgroundColor: Colors.red.shade100,
+           colorText: Colors.black);
 
        return false;
      }
      return true;
    }else{
+
+     Get.snackbar("خطأ", "الرجاء ملء الحقول بشكل صحيح",
+         snackPosition: SnackPosition.BOTTOM,
+         backgroundColor: Colors.red.shade100,
+         colorText: Colors.black);
+
      return false;}
  }
 

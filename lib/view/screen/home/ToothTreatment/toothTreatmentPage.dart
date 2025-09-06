@@ -141,7 +141,7 @@ class ToothTreatmentPage extends StatelessWidget {
                                           padding: const EdgeInsets.all(8.0),
                                           child: SizedBox(
                                             child: Row(
-                                              spacing: 3,
+                                              spacing: 2,
                                               children: [
                                                 Icon(Icons.merge_type,size: 20,color: AppMyColor.teal, ),
                                                 Text(
@@ -151,7 +151,7 @@ class ToothTreatmentPage extends StatelessWidget {
                                                 Text(
                                                   overflow: TextOverflow.clip,
                                                  " ${treatment.treatmentType ?? "-"}",
-                                                  style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14,color: AppMyColor.black87),
+                                                  style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12,color: AppMyColor.black87),
                                                 ),],),
                                           ),
                                         ),
@@ -322,11 +322,12 @@ class ToothTreatmentPage extends StatelessWidget {
         );
       }),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: AppMyColor.teal200,
         onPressed: () {
           // _showAddDialog(context);
           controller.showAddTreatmentDialog(patientId);
         },
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.add,color: Colors.white,),
       ),
     );
   }

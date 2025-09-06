@@ -61,7 +61,40 @@ class DoctorProfilePage extends StatelessWidget {
                       height: 300,
                       width: double.infinity,
                       child: LottieBuilder.asset(
-                        "assets/Lottie/empty.json",
+                        "assets/Lottie/core/loading.json",
+                        repeat: true,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            );
+
+
+          } if(  controller.statusRequest.value!= StatusRequest.success
+          ){
+
+
+
+
+
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(height: 40),
+                BuildSectionHeader(
+                  title: "Doctor Profile",
+
+                  icon: Icons.arrow_forward,
+
+                ),
+                Expanded(
+                  child: Center(
+                    child: SizedBox(
+                      height: 300,
+                      width: double.infinity,
+                      child: LottieBuilder.asset(
+                        "assets/Lottie/server.json",
                         repeat: true,
                       ),
                     ),
@@ -169,21 +202,42 @@ class DoctorProfilePage extends StatelessWidget {
     return Center(
       child: Stack(
         children: [
+
+
           Obx(() {
             if (controller.doctorImage.value != null) {
               return CircleAvatar(
-                backgroundColor: AppMyColor.teal200,
                 radius: 70,
                 backgroundImage: FileImage(controller.doctorImage.value!),
               );
+            } else if (controller.user.photo != null && controller.user.photo!.isNotEmpty) {
+              return CircleAvatar(
+                radius: 70,
+                backgroundImage: NetworkImage(controller.user.photo!),
+              );
             } else {
               return const CircleAvatar(
-                backgroundColor: AppMyColor.teal200,
                 radius: 70,
-                child: Icon(Icons.person, size: 60, color: Colors.white),
+                child: Icon(Icons.person, size: 60),
               );
             }
           }),
+
+          // Obx(() {
+          //   if (controller.doctorImage.value != null) {
+          //     return CircleAvatar(
+          //       backgroundColor: AppMyColor.teal200,
+          //       radius: 70,
+          //       backgroundImage: FileImage(controller.doctorImage.value!),
+          //     );
+          //   } else {
+          //     return const CircleAvatar(
+          //       backgroundColor: AppMyColor.teal200,
+          //       radius: 70,
+          //       child: Icon(Icons.person, size: 60, color: Colors.white),
+          //     );
+          //   }
+          // }),
           Positioned(
             bottom: 0,
             right: 0,

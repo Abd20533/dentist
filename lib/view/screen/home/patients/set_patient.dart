@@ -79,7 +79,9 @@ backgroundColor: Colors.white,
 
                             onTap: () {
 
+
                             },
+
                             decoration: InputDecoration(
                               contentPadding: const EdgeInsets.symmetric(
                                 vertical: 12,
@@ -117,7 +119,10 @@ backgroundColor: Colors.white,
                               fillColor: Colors.white70,
 
                             ),
-                            onChanged: (value){},
+                            onChanged: (value) {
+                              final controller = Get.find<PatientController>();
+                              controller.searchPatients(value);
+                            },
 
 
                           ),

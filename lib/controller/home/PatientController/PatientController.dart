@@ -34,6 +34,56 @@ class PatientController extends GetxController {
     'Impacted Tooth': PdfColors.yellow,
   };
 
+  // #################
+
+
+
+
+
+
+
+
+
+  Future<void> searchPatients(String query) async {
+    if (query.isEmpty) {
+      await getPatients();
+      return;
+    }
+
+    isLoading(true);
+    errorMessage('');
+    statusRequest.value = StatusRequest.loading;
+
+    await submitData.searchPatients(query).then((value) async {
+      if (value.statusCode == 200) {
+        patientsPostMan.assignAll(PatientModel.fromJsonList(value.data));
+        statusRequest.value = StatusRequest.success;
+      } else {
+        statusRequest.value = StatusRequest.serverFailure;
+      }
+      isLoading(false);
+      update();
+    }).catchError((error) {
+      isLoading(false);
+      statusRequest.value = StatusRequest.serverFailure;
+      Get.snackbar("خطأ", "فشل في البحث: $error");
+      update();
+    });
+  }
+
+
+
+  // #################
+
+
+
+
+
+
+
+
+
+
 
   Future<void> getPatients(
 

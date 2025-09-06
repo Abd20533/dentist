@@ -19,6 +19,26 @@ class GetPatientsData {
 
 
 
+  searchPatients(
+      String query
+      ) async {
+
+
+    var response = await crud.search(linkUrl: AppLinkApi.searchPatients,
+
+        query:query ,
+        data: {
+
+
+    });
+    return response.fold((l) => l, (r) => r);
+  }
+
+
+
+  // searchPatients
+
+
 
   deletePatient({
 

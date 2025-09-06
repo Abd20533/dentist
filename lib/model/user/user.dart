@@ -1,4 +1,6 @@
 
+import 'package:dentist/core/constant/app_link_api.dart';
+
 class Profile {
   final String? resetPasswordToken;
   final DateTime? resetPasswordExpire;
@@ -16,7 +18,8 @@ class Profile {
       resetPasswordExpire: json['reset_password_expire'] != null
           ? DateTime.tryParse(json['reset_password_expire'] as String)
           : null,
-      photo: json['photo'] as String?,
+      photo:"${AppLinkApi.urlServerImage}${json['photo']}"as String?,
+      // photo: json['photo'] as String?,
     );
   }
 
@@ -65,7 +68,10 @@ class User {
       lastName: json['last_name'] as String?,
       email: json['email'] as String?,
       username: json['username'] as String?,
-      photo: json['photo'] as String?,
+      photo:json['photo']!=null? "${AppLinkApi.urlServerImage}${json['photo']}" :null,
+
+      // photo: json['photo'] as String?,
+      // photo: json['photo'] as String?,
       profile: json['profile'] != null
           ? Profile.fromJson(json['profile'] as Map<String, dynamic>)
           : null,

@@ -145,6 +145,30 @@ class Crud {
 
 
 
+  Future<Either<StatusRequest, dynamic>> search({
+    required String linkUrl,
+    String ?query,
+     Map? data,
+  }) async {
+
+    if (await checkInternet()) {
+      dynamic response=await DioHelper.search(endPont: linkUrl,query : query, myData: data);
+
+      if (response.statusCode! > 199 &&  response.statusCode! <  300 ) {
+
+        return Right(response);}
+
+      else {
+        return const Left(StatusRequest.serverException);
+      }
+    }
+    return const Left(StatusRequest.serverFailure);
+
+
+  }
+
+
+
 
   Future<Either<StatusRequest, dynamic>> postRequestWithImageOneDio({
 

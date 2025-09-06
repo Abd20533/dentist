@@ -22,9 +22,9 @@ class ConditionView extends StatelessWidget {
         onPressed: () {
           itemController.addCondition(context, patientId: patientId);
         },
-        icon: Icon(Icons.add_alert, color: Colors.teal.shade300),
+        icon: Icon(Icons.sick, color: Colors.teal.shade300),
         label: const Text(
-          "إضافة حساسية",
+          "إضافة مرض",
           style: TextStyle(color: Colors.black, fontSize: 16),
         ),
       ),

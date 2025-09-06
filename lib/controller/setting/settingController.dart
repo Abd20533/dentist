@@ -72,6 +72,8 @@ class DoctorProfileController extends GetxController {
       } else {
         Get.snackbar("خطأ", "فشل في جلب بيانات الطبيب");
         isLoading(false);
+        statusRequest.value = StatusRequest.failure;
+
         update();
 
       }
@@ -128,13 +130,15 @@ photo:photo ,
         statusRequest.value = StatusRequest.success;
 
         isLoading(false);
-        Get.snackbar("نجاح", "نجح في جلب بيانات الطبيب");
+        Get.snackbar("نجاح", "نجح في تعديل بيانات الطبيب");
 
 
         update();
 
       } else {
-        Get.snackbar("خطأ", "فشل في جلب بيانات الطبيب");
+        Get.snackbar("خطأ", "فشل في تعديل بيانات الطبيب");
+        statusRequest.value = StatusRequest.failure;
+
         isLoading(false);
         update();
 

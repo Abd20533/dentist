@@ -31,6 +31,9 @@ class AppLinkApi {
   static const addPatient = '$patients/addPatient/';
   static const deletePatient = '$patients/deletePatient/';
   static const patientDelete = '$patients/patients/delete/';
+  static const searchPatients = '$patients/searchPatients/';
+
+
 
 
   static const radiograph= "Radiograph";

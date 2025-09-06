@@ -101,6 +101,7 @@ class ToothTreatmentController extends GetxController {
     Get.dialog(
       StatefulBuilder(
         builder: (context, setState) => AlertDialog(
+          backgroundColor: Colors.white,
           title: const Text("إضافة علاج سنّي"),
           content: SingleChildScrollView(
             child: Column(
@@ -182,6 +183,7 @@ class ToothTreatmentController extends GetxController {
               child: const Text("إلغاء"),
             ),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
               onPressed: () {
                 final toothNum = toothNumberController.text.trim();
 

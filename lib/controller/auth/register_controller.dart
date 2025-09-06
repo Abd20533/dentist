@@ -1,5 +1,6 @@
 
 import 'package:dentist/my_import.dart';
+import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
@@ -63,7 +64,7 @@ class RegisterController extends GetxController {
 
 
 
-  Future<bool> checkFormState() async {
+  Future<bool> checkFormStateOld() async {
 
     if (formState.currentState!.validate()) {
 
@@ -77,7 +78,7 @@ class RegisterController extends GetxController {
   }
 
 
-  Future<void> signUp(
+  Future<void> signUpOld(
 
 
       ) async {
@@ -95,9 +96,6 @@ class RegisterController extends GetxController {
         if (value.statusCode == 200 || value.statusCode == 201 ) {
           statusRequest.value = handlingDataController(value.data);
           statusRequest.value = StatusRequest.success;
-          // isLoading(false);
-
-
 
           isLoading(false);
 
@@ -108,15 +106,86 @@ class RegisterController extends GetxController {
 
         }
       }).catchError((error) {
+
         isLoading(false);
 
 
       });
     }}
 
+  Future<void> signUp() async {
+    if (await checkFormState()) {
+      isLoading(true);
+      errorMessage('');
+      statusRequest.value = StatusRequest.loading;
+
+      await signUpData.postData(
+        email: emailController.text,
+        firstName: firstNameController.text,
+        lastName: lastNameController.text,
+        password: passwordController.text,
+      ).then((value) async {
+        if (value.statusCode == 200 || value.statusCode == 201) {
+          // ✅ نجاح
+          statusRequest.value = handlingDataController(value.data);
+          statusRequest.value = StatusRequest.success;
+          isLoading(false);
+
+          Get.snackbar("نجاح", "تم إنشاء الحساب بنجاح 🎉",
+              snackPosition: SnackPosition.BOTTOM,
+              backgroundColor: Colors.green.shade100,
+              colorText: Colors.black);
+
+          navigateToLogin();
+          update();
+        } else {
+          // ❌ السيرفر رجّع خطأ
+          isLoading(false);
+          Get.snackbar("خطأ", "فشل في إنشاء الحساب: ${value.statusMessage ?? "تحقق من البيانات"}",
+              snackPosition: SnackPosition.BOTTOM,
+              backgroundColor: Colors.red.shade100,
+              colorText: Colors.black);
+          statusRequest.value = StatusRequest.serverFailure;
+          update();
+        }
+      }).catchError((error) {
+        isLoading(false);
+        Get.snackbar("خطأ", "حدث خطأ أثناء التسجيل: $error",
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.red.shade100,
+            colorText: Colors.black);
+        statusRequest.value = StatusRequest.serverException;
+        update();
+      });
+    } else {
+      // 🚨 checkFormState رجع false
+      Get.snackbar("تنبيه", "الرجاء التأكد من صحة البيانات المدخلة أو الاتصال بالإنترنت",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.orange.shade100,
+          colorText: Colors.black);
+    }
+  }
 
 
 
+  Future<bool> checkFormState() async {
+    if (formState.currentState!.validate()) {
+      if (await checkInternet() == false) {
+        Get.snackbar("خطأ", "لا يوجد اتصال بالإنترنت",
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.red.shade100,
+            colorText: Colors.black);
+        return false;
+      }
+      return true;
+    } else {
+      Get.snackbar("خطأ", "الرجاء ملء الحقول بشكل صحيح",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red.shade100,
+          colorText: Colors.black);
+      return false;
+    }
+  }
 
 
 

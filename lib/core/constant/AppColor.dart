@@ -27,6 +27,7 @@ class AppMyColor {
   // #06C2F4
   static const Color blue2 =  Color(0xff06C2F4);
   static const Color teal = Colors.teal;
+  static  Color teal100 = Colors.teal.shade100;
   static const Color teal300 = Color(0xFF4DB6AC);
   static const Color teal50 = Color(0xE0F2F1FF);
     static const Color teal200 = Color(0xFF80CBC4);

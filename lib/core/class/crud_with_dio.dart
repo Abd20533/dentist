@@ -132,7 +132,34 @@ static Future<Response> myGet({
   }
 
 
- 
+ static Future<Response> search({
+    required String endPont,
+   String ?query,
+     myData,
+  }) async {
+
+  print("myGet");
+  print(' __________myGet _____________-token is:$token');
+
+
+    return await dio.get(endPont,
+        data: myData,
+        queryParameters:  {"q": query},
+        options: Options(
+
+            headers: {
+              'Authorization': 'Bearer $token',
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+            },
+            followRedirects: false,
+            validateStatus: (status) {
+              return status! < 500;
+            }));
+  }
+
+
+
 
 
   static Future<Response> myDelete({

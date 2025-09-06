@@ -53,8 +53,8 @@ class AddRadiographToPatientsData {
     required File photo,
     required String patientId,
   }) async {
-    // String linkUrl = "${AppLinkApi.radiographsAdd}$patientId/";
-    String linkUrl = "${AppLinkApi.addRadiographToPatient}$patientId/";
+    String linkUrl = "${AppLinkApi.radiographsAdd}$patientId/";
+    // String linkUrl = "${AppLinkApi.addRadiographToPatient}$patientId/";
 
     print("i am here in postData");
 
@@ -89,8 +89,8 @@ class AddRadiographToPatientsData {
 
 
     // http://127.0.0.1:8000/api/Radiograph/radiographsAdd/1/
+    String linkUrl= "${AppLinkApi.radiographDelete}$radiograph_id/";
     // String linkUrl= "${AppLinkApi.radiographDelete}$radiograph_id/";
-    String linkUrl= "${AppLinkApi.radiographsAdd}$radiograph_id/";
 
 
     var response = await crud.deleteData(
