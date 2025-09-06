@@ -48,7 +48,8 @@ class LocaleController extends GetxController {
     } else {
       appTheme = appThemeEnglish;
       myServices.mySharedPreferences.setString("language", "en");
-      language = Locale(Get.deviceLocale!.languageCode);
+      // language = Locale(Get.deviceLocale!.languageCode);
+      language = const Locale("en");
     }
 
     super.onInit();

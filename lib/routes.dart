@@ -11,6 +11,7 @@ import 'package:dentist/view/screen/home/patients/set_patient.dart';
 import 'package:dentist/view/screen/onboarding/on_baording.dart';
 import 'package:dentist/view/screen/setting/settingView.dart';
 import 'package:dentist/view/screen/splash/splash.dart';
+import 'package:dentist/view/screen/success_reset_password.dart';
 import 'package:dentist/view/screen/welcome/welcome.dart';
 import 'package:get/get.dart';
 
@@ -54,6 +55,7 @@ List<GetPage<double>>? routesGetX = [
   GetPage(name: '/patient', page: () => Patient()),
   GetPage(name: '/sendEmail', page: () => SendEmail()),
   GetPage(name: '/verificationView', page: () => VerificationView()),
+  GetPage(name: '/successResetPassword', page: () => SuccessResetPassword()),
   // GetPage(name: '/patientForm', page: () => AddOnePatient()),
   // GetPage(name: '/patientDashboard', page: () => PatientDashboard()),
 

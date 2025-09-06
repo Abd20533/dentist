@@ -19,25 +19,19 @@ class GetStarted extends GetView<GetStartedController>  {
         children: [
           Padding(
             padding: const EdgeInsets.only(top: 80.0, bottom: 20),
-            // child: Container(
-            //   width: MediaQuery.of(context).size.width,
-            //   height: MediaQuery.of(context).size.height / 3,
-            //   decoration: const BoxDecoration(
-            //     image: DecorationImage(
-            //       image: AssetImage("assets/images/tooth3.jpg"),
-            //       fit: BoxFit.fill,
-            //     ),
-            //   ),
-            // ),
 
 
             child: Container(
+              // width: 200,
+              // height: 200,
               width: Get.width/1.5,
               height: Get.height / 4,
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   // image: AssetImage( "assets/images/logo/logoTooth1.png"),
-                  image: AssetImage( "assets/images/logo/logoTooth.png"),
+                  image: AssetImage( "assets/images/logo/logoTooth.png"
+
+                  ,),
 
                   // image: AssetImage("assets/images/tooth3.jpg"),
                   fit: BoxFit.contain,
@@ -122,7 +116,7 @@ class GetStarted extends GetView<GetStartedController>  {
                   fontWeight: FontWeight.bold,
                 ),
               ).center(),
-            ).center(),
+            ).center().onTap(() => controller.handleSignUp(),),
           ),
 
           Row(

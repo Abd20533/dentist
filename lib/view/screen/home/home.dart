@@ -1,5 +1,6 @@
 
 import 'package:dentist/controller/home/PatientController/PatientController.dart';
+import 'package:dentist/controller/setting/settingController.dart';
 import 'package:dentist/view/screen/home/patients/set_patient.dart';
 import 'package:dentist/view/screen/home/patients/AddPatient.dart';
 import 'package:dentist/view/screen/setting/settingView.dart';
@@ -27,6 +28,7 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     Get.put(PatientController());
+    Get.put(DoctorProfileController());
   }
 
   @override

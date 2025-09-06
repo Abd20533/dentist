@@ -18,9 +18,25 @@ class ViewPanoramaRays extends StatelessWidget {
       drawer: const Drawer(),
       backgroundColor: Colors.white,
       body: Obx(() {
-        if (addRadiographController.isLoading.value) {
-          return const Center(child: CircularProgressIndicator());
+
+
+        if (addRadiographController.isAddImage.value) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text("جاري التحميل"),
+              SizedBox(height: 40,),
+              const Center(child: CircularProgressIndicator(color: AppMyColor.teal300,)),
+            ],
+          );
         }
+        if (addRadiographController.isLoading.value) {
+          return const Center(child: CircularProgressIndicator(color: AppMyColor.teal300,));
+        }
+
+
+
 
         final patient = patientController.patientsPostMan
             .firstWhere((p) => p.id == patientId);
@@ -464,23 +480,77 @@ class ViewPanoramaRays extends StatelessWidget {
           ),
         );
       }),
+
+
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: Colors.white,
         onPressed: () {
-          addRadiographController.pickAndSubmit(
-            patientId.toString(),
-            patientController.patientsPostMan
-                .firstWhere((p) => p.id == patientId),
-          ).then((_) {
-            addRadiographController.addExpansionState();
-          });
+          Get.bottomSheet(
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                ),
+              ),
+              child: Wrap(
+                children: [
+                  ListTile(
+                    leading: Icon(Icons.image, color: Colors.teal.shade300),
+                    title: const Text("إضافة صورة"),
+                    onTap: () {
+                      addRadiographController.pickImageAndSubmit(
+                        patientId.toString(),
+                        patientController.patientsPostMan
+                            .firstWhere((p) => p.id == patientId),
+                      );
+                      Get.back();
+                    },
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.insert_drive_file, color: Colors.teal.shade300),
+                    title: const Text("إضافة ملف"),
+                    onTap: () {
+                      addRadiographController.pickFileAndSubmit(
+                        patientId.toString(),
+                        patientController.patientsPostMan
+                            .firstWhere((p) => p.id == patientId),
+                      );
+                      Get.back();
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
         },
         icon: Icon(Icons.add_a_photo, color: Colors.teal.shade300),
         label: const Text(
-          "إضافة صورة",
+          "إضافة صورة/ملف",
           style: TextStyle(color: Colors.black, fontSize: 16),
         ),
       ),
+
+
+      // floatingActionButton: FloatingActionButton.extended(
+      //   backgroundColor: Colors.white,
+      //   onPressed: () {
+      //     addRadiographController.pickAndSubmit(
+      //       patientId.toString(),
+      //       patientController.patientsPostMan
+      //           .firstWhere((p) => p.id == patientId),
+      //     ).then((_) {
+      //       addRadiographController.addExpansionState();
+      //     });
+      //   },
+      //   icon: Icon(Icons.add_a_photo, color: Colors.teal.shade300),
+      //   label: const Text(
+      //     "إضافة صورة",
+      //     style: TextStyle(color: Colors.black, fontSize: 16),
+      //   ),
+      // ),
     );
   }
 }

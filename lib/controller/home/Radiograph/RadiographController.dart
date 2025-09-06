@@ -1,11 +1,16 @@
 import 'dart:io';
-import 'package:dentist/model/Patient/PatientModel.dart';
 import 'package:dentist/my_import.dart';
-
+import 'package:file_picker/file_picker.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart' as path;
+
+
+
 class AddRadiographToPatientsController extends GetxController {
 
   final Rx<StatusRequest> statusRequest = StatusRequest.none.obs;
@@ -15,7 +20,7 @@ class AddRadiographToPatientsController extends GetxController {
   final RxBool isLoading = false.obs;
   final RxBool isLoadingAnalyze = false.obs;
   final RxList<bool> isAnalyzingList = <bool>[].obs;
-
+  final RxBool isAddImage = false.obs;
 
 
   final ImagePicker picker = ImagePicker();
@@ -63,9 +68,63 @@ class AddRadiographToPatientsController extends GetxController {
     final XFile? image = await picker.pickImage(source: ImageSource.gallery);
 
     if (image != null) {
-      await addRadiographToPatients(File(image.path), patientId, patient);
+      File compressedPhoto = await compressImage(File(image.path));
+      await addRadiographToPatients(compressedPhoto, patientId, patient);
+
+      // await addRadiographToPatients(File(image.path), patientId, patient);
     }
   }
+
+  Future<File> compressImage(File file) async {
+    final dir = await getTemporaryDirectory();
+    final targetPath = path.join(dir.path, "temp_${DateTime.now().millisecondsSinceEpoch}.jpg");
+
+    var result = await FlutterImageCompress.compressAndGetFile(
+      file.absolute.path,
+      targetPath,
+      minWidth: 200,   // تقليل العرض
+      minHeight: 200,
+      quality: 60,
+      format: CompressFormat.jpeg,
+    );
+
+    if (result is File) {
+      return result as File;
+    } else {
+      return file;
+    }
+
+  }
+  Future<void> pickImageAndSubmit(String patientId, PatientModel patient) async {
+  final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+  if (image != null) {
+    // final compressed = await compressImage(File(image.path));
+    File compressedPhoto = await compressImage(File(image.path));
+    await addRadiographToPatients(compressedPhoto, patientId, patient);
+    // await addRadiographToPatients(File(image.path), patientId, patient);
+  addExpansionState();
+  addAnalyzingState();
+  }
+  }
+
+  Future<void> pickFileAndSubmit(String patientId, PatientModel patient) async {
+  final result = await FilePicker.platform.pickFiles(
+  type: FileType.any,
+  );
+  if (result != null && result.files.single.path != null) {
+  final file = File(result.files.single.path!);
+
+
+  File compressedPhoto = await compressImage(File(file.path));
+  await addRadiographToPatients(compressedPhoto, patientId, patient);
+  // await addRadiographToPatients(file, patientId, patient);
+  addExpansionState();
+  addAnalyzingState();
+  }
+  }
+
+
+
 
   void clear(){
 
@@ -168,6 +227,7 @@ class AddRadiographToPatientsController extends GetxController {
     isLoading(true);
     errorMessage('');
     statusRequest.value = StatusRequest.loading;
+    isAddImage (true);
 
     await submitData.postData(
       patientId: patientId,
@@ -182,6 +242,8 @@ class AddRadiographToPatientsController extends GetxController {
 
         final patientController = Get.find<PatientController>();
         await patientController.getPatients();
+        isAddImage (false);
+
         update();
 
         addExpansionState();
@@ -195,10 +257,15 @@ class AddRadiographToPatientsController extends GetxController {
 
       }
       else{
-      Get.snackbar("فشل", "!!!!!!فشل إضافة صورة الأشعة!!!!!!!! ");}
+        isAddImage (false);
+
+        Get.snackbar("فشل", "!!!!!!فشل إضافة صورة الأشعة!!!!!!!! ");}
 
       isLoading(false);
     }).catchError((error) {
+      isAddImage (false);
+
+      print("____error_______________$error");
       Get.snackbar("فشل",error.toString(),);
 
       isLoading(false);

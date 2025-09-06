@@ -158,11 +158,61 @@ class Crud {
 
     print("Crud is : postRequestWithImageOne");
 
+
     if (await checkInternet()) {
 
       print("you have internet  getData");
-      // dynamic response=await DioHelper.myGet(endPont: linkUrl, myData: data);
       dynamic response=await DioHelper.postRequestWithImageOne(
+          image: image,
+          data: data,
+          linkUrl: linkUrl,
+
+
+          );
+
+
+      print("i in crud in  postRequestWithImageOneDio");
+      print("response is: ${response.toString()}");
+
+
+
+
+
+      if (response.statusCode! > 199 &&  response.statusCode! <  300 ) {
+
+        print(response.statusCode);
+        print("Crud0");
+        return Right(response);}
+
+      else {
+        return const Left(StatusRequest.serverException);
+      }
+    }
+    return const Left(StatusRequest.serverFailure);
+
+
+  }
+
+
+ Future<Either<StatusRequest, dynamic>> putRequestWithImageOneDio({
+
+
+    String? nameRequest,
+    required Map<String, dynamic> data,
+    required String linkUrl,
+    required String email,
+    required File? image,
+
+  }) async {
+
+    print("Crud is : postRequestWithImageOne");
+
+
+    if (await checkInternet()) {
+
+      print("you have internet  getData");
+      dynamic response=await DioHelper.putRequestWithImageOne(
+        email:email ,
           image: image,
           data: data,
           linkUrl: linkUrl,

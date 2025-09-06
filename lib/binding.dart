@@ -4,6 +4,7 @@ import 'package:dentist/controller/auth/login_controller.dart';
 import 'package:dentist/controller/auth/register_controller.dart';
 import 'package:dentist/controller/auth/verification_controller.dart';
 import 'package:dentist/controller/get_started_controller.dart';
+import 'package:dentist/controller/setting/settingController.dart';
 import 'package:dentist/core/class/crud.dart';
 import 'package:get/get.dart';
 
@@ -22,6 +23,7 @@ class MyBinding extends Bindings {
     Get.lazyPut<SendEmailController>(() => SendEmailController(), fenix: true);
     Get.create<VerificationController>(() => VerificationController());
 
+    Get.lazyPut<DoctorProfileController>(() => DoctorProfileController(), fenix: true);
 
 
   }

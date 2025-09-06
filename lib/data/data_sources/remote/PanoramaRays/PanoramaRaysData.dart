@@ -3,8 +3,8 @@
 import 'dart:io';
 
 import 'package:dentist/core/class/crud.dart';
+import 'package:dentist/core/class/crud_with_dio.dart';
 import 'package:dentist/core/constant/app_link_api.dart';
-import 'package:dio/dio.dart';
 class AddRadiographToPatientsData {
   final Crud crud;
 
@@ -37,6 +37,8 @@ class AddRadiographToPatientsData {
     String linkUrl=AppLinkApi.analyzeRadiograph;
 
 
+
+
     var response = await crud.postData(
         linkUrl:linkUrl
 
@@ -48,37 +50,24 @@ class AddRadiographToPatientsData {
 
 
   postData({
-
     required File photo,
     required String patientId,
+  }) async {
+    // String linkUrl = "${AppLinkApi.radiographsAdd}$patientId/";
+    String linkUrl = "${AppLinkApi.addRadiographToPatient}$patientId/";
 
-  }
+    print("i am here in postData");
 
-      ) async {
 
-    // Map<String, dynamic>data={
-    //
-    //
-    //
-    // };
 
-    FormData formData = FormData.fromMap({
-      "photo": await MultipartFile.fromFile(
-        photo.path,
-        filename: photo.path.split('/').last,
-      ),
-    });
-
-   String end=patientId;
-    String linkUrl="${AppLinkApi.addRadiographToPatient}$end/";
 
 
     var response = await crud.postRequestWithImageOneDio(
-    linkUrl:linkUrl
+      linkUrl: linkUrl,
+      data: {},
+      image: photo,
+    );
 
-
-        , data: {},
-        image:photo );
     return response.fold((l) => l, (r) => r);
   }
 
@@ -98,10 +87,10 @@ class AddRadiographToPatientsData {
     };
 
 
-    // radiographDelete http://127.0.0.1:8000/api/Radiograph/radiographDelete/2/
 
-
-    String linkUrl= "${AppLinkApi.radiographDelete}$radiograph_id/";
+    // http://127.0.0.1:8000/api/Radiograph/radiographsAdd/1/
+    // String linkUrl= "${AppLinkApi.radiographDelete}$radiograph_id/";
+    String linkUrl= "${AppLinkApi.radiographsAdd}$radiograph_id/";
 
 
     var response = await crud.deleteData(

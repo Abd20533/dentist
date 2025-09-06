@@ -21,8 +21,8 @@ class DioHelper {
       BaseOptions(
         baseUrl: AppLinkApi.urlServer,
         receiveDataWhenStatusError: true,
-        connectTimeout: const Duration(milliseconds: 30000),
-        receiveTimeout: const Duration(milliseconds: 30000),
+        connectTimeout: const Duration(milliseconds: 45000),
+        receiveTimeout: const Duration(milliseconds: 45000),
         // connectTimeout: const Duration(milliseconds: 20000),
         // receiveTimeout: const Duration(milliseconds: 20000),
       ),
@@ -187,19 +187,13 @@ static Future<Response> myGet({
 
 
 
-
-
-
-
-
-
   static Future<Response> postRequestWithImageOne({
-    String nameRequest = "files",
     required Map<String, dynamic> data,
     required String linkUrl,
     required File? image,
   }) async {
     print("token is $token and i in postRequestWithImageOne");
+    print("i am here in postRequestWithImageOne");
 
     FormData formData = FormData.fromMap({
       ...data,
@@ -226,9 +220,62 @@ static Future<Response> myGet({
       ),
     );
 
+    print("i am here in$response ");
+
     return response;
   }
 
+
+
+  static Future<Response> putRequestWithImageOne({
+    required Map<String, dynamic> data,
+    required String linkUrl,
+    required String email,
+    required File? image,
+  }) async {
+    print("token is $token and i in postRequestWithImageOne");
+    print("i am here in postRequestWithImageOne");
+
+    FormData formData = FormData.fromMap({
+      ...data,
+      if (image != null)
+        "photo": await MultipartFile.fromFile(
+          image.path,
+          filename: image.path.split("/").last,
+        ),
+      "email":email,
+    });
+
+    Response response = await dio.put(
+      linkUrl,
+      data: formData,
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Accept': 'application/json',
+          "Content-Type": "multipart/form-data"
+        },
+        followRedirects: false,
+        validateStatus: (status) {
+          return status! < 500;
+        },
+      ),
+    );
+
+    return response;
+  }
+
+
+
+
+
+
+
+
+
+
 }
+
+
 
 

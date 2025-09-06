@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:dentist/model/Patient/PatientModel.dart';
 import 'package:dentist/my_import.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';

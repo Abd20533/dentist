@@ -70,7 +70,7 @@ class  ResetPasswordController extends GetxController {
           statusRequest.value = StatusRequest.success;
 
 
-          login();
+          successResetPassword();
           update();
 
         }
@@ -98,9 +98,6 @@ class  ResetPasswordController extends GetxController {
 
 
 
-  void navigateToRegister() => Get.offNamed('/register');
-
-  void forgotPassword() => Get.toNamed('/home');
 
   void socialLogin(String provider) {
     Get.snackbar('coming_soon'.tr, 'login_with_$provider'.tr);
@@ -128,7 +125,11 @@ class  ResetPasswordController extends GetxController {
 
 
   void login() => Get.offNamed('/login');
+  void successResetPassword() => Get.offNamed('/successResetPassword');
 
+  void navigateToRegister() => Get.offNamed('/register');
+
+  void forgotPassword() => Get.toNamed('/home');
 
 
 }
